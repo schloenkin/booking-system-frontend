@@ -1,0 +1,42 @@
+<h1>Create Booking</h1>
+
+<form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+
+  <div>
+    <label>
+      Service ID
+    </label>
+
+    <input
+      type="number"
+      formControlName="serviceId">
+  </div>
+
+
+  <div>
+    <label>
+      Start time
+    </label>
+
+    <input
+      type="datetime-local"
+      formControlName="startTime">
+  </div>
+
+
+  <div>
+    <label>
+      End time
+    </label>
+
+    <input
+      type="datetime-local"
+      formControlName="endTime">
+  </div>
+
+
+  <button type="submit">
+    Create
+  </button>
+
+</form>
