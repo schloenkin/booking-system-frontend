@@ -2,16 +2,27 @@
 
 <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
 
-  <div>
-    <label>
-      Service ID
-    </label>
+    <div>
 
-    <input
-      type="number"
-      formControlName="serviceId">
-  </div>
+      <label>
+        Service
+      </label>
 
+      <select formControlName="serviceId">
+
+        <option [value]="0">
+          Select service
+        </option>
+
+        @for (service of services; track service.id) {
+          <option [value]="service.id">
+            {{service.name}}
+          </option>
+        }
+
+      </select>
+
+    </div>
 
   <div>
     <label>
@@ -34,6 +45,13 @@
       formControlName="endTime">
   </div>
 
+  @if (errorMessage) {
+
+    <div class="error-message">
+      {{ errorMessage }}
+    </div>
+
+  }
 
   <button type="submit">
     Create
