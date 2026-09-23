@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { BookingService } from '../../core/services/booking';
 
@@ -27,7 +28,10 @@ export class CreateBooking {
     }),
   });
 
-  constructor(private bookingService: BookingService) {}
+  constructor(
+    private bookingService: BookingService,
+    private router: Router,
+  ) {}
 
   onSubmit(): void {
     if (this.bookingForm.invalid) {
@@ -39,6 +43,7 @@ export class CreateBooking {
     this.bookingService.createBooking(request).subscribe({
       next: (booking) => {
         console.log('CREATED:', booking);
+        this.router.navigate(['/dashboard']);
       },
 
       error: (error) => {

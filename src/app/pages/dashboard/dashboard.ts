@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingService } from '../../core/services/booking';
 import { BookingResponse } from '../../core/models/booking-response';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

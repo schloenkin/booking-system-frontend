@@ -1,19 +1,29 @@
-<h1>Dashboard</h1>
+<h1>My Bookings</h1>
 
-<h2>My Bookings</h2>
-
-@if (bookings.length === 0) {
-  <p>No bookings found.</p>
-}
+<button routerLink="/create-booking">
+  Create Booking
+</button>
 
 @for (booking of bookings; track booking.id) {
-  <div>
-    <p>ID: {{ booking.id }}</p>
-    <p>Service: {{ booking.serviceId }}</p>
-    <p>Start: {{ booking.startTime }}</p>
-    <p>End: {{ booking.endTime }}</p>
-    <p>Status: {{ booking.status }}</p>
 
-    <hr>
+  <div class="booking-card">
+
+    <p>
+      Service: {{ booking.serviceId }}
+    </p>
+
+    <p>
+      Time:
+      {{ booking.startTime }}
+      -
+      {{ booking.endTime }}
+    </p>
+
+    <p>
+      Status:
+      {{ booking.status }}
+    </p>
+
   </div>
+
 }
