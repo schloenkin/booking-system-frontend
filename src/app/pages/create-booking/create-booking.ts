@@ -6,6 +6,7 @@ import { BookingService } from '../../core/services/booking';
 
 @Component({
   selector: 'app-create-booking',
+  standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './create-booking.html',
   styleUrl: './create-booking.css',
@@ -43,7 +44,7 @@ export class CreateBooking {
     this.bookingService.createBooking(request).subscribe({
       next: (booking) => {
         console.log('CREATED:', booking);
-        this.router.navigate(['/dashboard']);
+        void this.router.navigate(['/dashboard']);
       },
 
       error: (error) => {

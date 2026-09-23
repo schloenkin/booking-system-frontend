@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
 import { BookingService } from '../../core/services/booking';
 import { BookingResponse } from '../../core/models/booking-response';
 import { RouterLink } from '@angular/router';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
+  standalone: true,
   imports: [RouterLink],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
@@ -12,13 +13,19 @@ import { RouterLink } from '@angular/router';
 export class Dashboard implements OnInit {
   bookings: BookingResponse[] = [];
 
-  constructor(private bookingService: BookingService) {}
+  constructor(
+    private bookingService: BookingService,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.bookingService.getBookings().subscribe({
       next: (response) => {
         this.bookings = response.content;
+
         console.log('BOOKINGS:', response);
+
+        this.cdr.detectChanges();
       },
 
       error: (error) => {
