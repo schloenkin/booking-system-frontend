@@ -1,5 +1,78 @@
+.dashboard-container {
+  padding: 24px;
+}
+
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+
+.dashboard-header h1 {
+  margin: 0;
+}
+
+
+.dashboard-header button {
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+
+.booking-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+
 .booking-card {
-  border: 1px solid black;
-  padding: 10px;
-  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+
+.booking-card h2 {
+  margin-top: 0;
+}
+
+
+.booking-card p {
+  margin: 10px 0;
+}
+
+
+.empty-message {
+  margin-top: 20px;
+}
+
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+
+.confirmed {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+
+.cancelled {
+  background-color: #f8d7da;
+  color: #842029;
 }

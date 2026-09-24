@@ -1,29 +1,61 @@
-<h1>My Bookings</h1>
+<div class="dashboard-container">
 
-<button routerLink="/create-booking">
-  Create Booking
-</button>
+  <div class="dashboard-header">
 
-@for (booking of bookings; track booking.id) {
+    <h1>My Bookings</h1>
 
-  <div class="booking-card">
-
-    <p>
-      Service: {{ booking.serviceId }}
-    </p>
-
-    <p>
-      Time:
-      {{ booking.startTime }}
-      -
-      {{ booking.endTime }}
-    </p>
-
-    <p>
-      Status:
-      {{ booking.status }}
-    </p>
+    <button routerLink="/create-booking">
+      Create Booking
+    </button>
 
   </div>
 
-}
+
+  @if (bookings.length === 0) {
+
+    <p class="empty-message">
+      No bookings found.
+    </p>
+
+  }
+
+
+  <div class="booking-grid">
+
+    @for (booking of bookings; track booking.id) {
+
+      <div class="booking-card">
+
+        <h2>
+          {{ getServiceName(booking.serviceId) }}
+        </h2>
+
+        <p>
+          <strong>Time:</strong>
+          {{ booking.startTime | date:'dd.MM.yyyy, HH:mm' }}
+          -
+          {{ booking.endTime | date:'HH:mm' }}
+        </p>
+
+        <p>
+          <strong>Status:</strong>
+
+          <span
+            class="status-badge"
+            [class.pending]="booking.status === 'PENDING'"
+            [class.confirmed]="booking.status === 'CONFIRMED'"
+            [class.cancelled]="booking.status === 'CANCELLED'"
+          >
+    {{ booking.status }}
+  </span>
+
+        </p>
+
+
+      </div>
+
+    }
+
+  </div>
+
+</div>

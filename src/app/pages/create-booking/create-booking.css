@@ -1,5 +1,61 @@
+form {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 25px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+
+h1 {
+  text-align: center;
+}
+
+
+form div {
+  margin-bottom: 20px;
+}
+
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+
+button {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+
 .error-message {
   margin-top: 10px;
   padding: 10px;
-  border: 1px solid red;
+  border: 1px solid #f5c2c7;
+  border-radius: 6px;
+  background-color: #f8d7da;
+  color: #842029;
+}
+
+
+.validation-error {
+  margin-top: 5px;
+  color: #842029;
+  font-size: 14px;
+}
+
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }

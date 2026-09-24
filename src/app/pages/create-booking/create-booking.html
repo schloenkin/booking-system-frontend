@@ -8,9 +8,11 @@
         Service
       </label>
 
-      <select formControlName="serviceId">
+      <select
+        formControlName="serviceId"
+        (change)="onServiceSelected($event)">
 
-        <option [value]="0">
+      <option [value]="0">
           Select service
         </option>
 
@@ -21,29 +23,25 @@
         }
 
       </select>
+      @if (
+        bookingForm.controls.serviceId.touched &&
+        bookingForm.controls.serviceId.invalid
+        ) {
+        <p class="validation-error">
+          Please select a service.
+        </p>
+      }
 
+      <app-date-picker
+        (dateSelected)="onDateSelected($event)">
+      </app-date-picker>
+
+      <app-slot-picker
+        [selectedDate]="selectedDate"
+        (slotSelected)="onSlotSelected($event)">
+      </app-slot-picker>
     </div>
 
-  <div>
-    <label>
-      Start time
-    </label>
-
-    <input
-      type="datetime-local"
-      formControlName="startTime">
-  </div>
-
-
-  <div>
-    <label>
-      End time
-    </label>
-
-    <input
-      type="datetime-local"
-      formControlName="endTime">
-  </div>
 
   @if (errorMessage) {
 
@@ -53,8 +51,12 @@
 
   }
 
-  <button type="submit">
-    Create
+  <button
+    type="submit"
+    [disabled]="bookingForm.invalid || !selectedDate || !selectedSlot || isLoading">
+
+    {{ isLoading ? 'Creating...' : 'Create' }}
+
   </button>
 
 </form>

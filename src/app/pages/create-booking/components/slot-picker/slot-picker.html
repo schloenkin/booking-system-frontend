@@ -1,0 +1,24 @@
+@if (selectedDate) {
+
+  <h3>
+    Available slots
+  </h3>
+
+  <div class="slots">
+
+    @for (slot of slots; track slot) {
+
+      <button
+        type="button"
+        (click)="selectSlot(slot)"
+        [class.selected]="selectedSlot === slot">
+
+        {{ slot }}
+
+      </button>
+
+    }
+
+  </div>
+
+}
