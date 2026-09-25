@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { BookingResponse } from '../models/booking-response';
 import { PageResponse } from '../models/page-response';
 import { BookingCreateRequest } from '../models/booking-create-request';
+import { BookingRescheduleRequest } from '../models/booking-reschedule-request';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,10 @@ export class BookingService {
 
   cancelBooking(id: number): Observable<BookingResponse> {
     return this.http.put<BookingResponse>(`${this.apiUrl}/${id}/cancel`, {});
+  }
+
+  rescheduleBooking(id: number, request: BookingRescheduleRequest): Observable<BookingResponse> {
+    return this.http.put<BookingResponse>(`${this.apiUrl}/${id}/reschedule`, request);
   }
 
   getBookingById(id: number): Observable<BookingResponse> {

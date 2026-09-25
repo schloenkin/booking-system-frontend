@@ -56,6 +56,57 @@
 
     }
 
+    @if (booking.status == 'PENDING') {
+
+      <button
+        type="button"
+        (click)="showRescheduleForm = true">
+
+        Reschedule
+
+      </button>
+
+    }
+
+    @if (showRescheduleForm) {
+
+      <div class="reschedule-form">
+
+        <h3>
+          Select new date and time
+        </h3>
+
+        <app-date-picker
+          (dateSelected)="onDateSelected($event)">
+        </app-date-picker>
+
+        <app-slot-picker
+          [selectedDate]="selectedDate"
+          (slotSelected)="onSlotSelected($event)">
+        </app-slot-picker>
+
+        <button
+          type="button"
+          (click)="saveReschedule()"
+          [disabled]="!selectedDate || !selectedSlot || isRescheduling">
+
+          {{ isRescheduling ? 'Saving...' : 'Save new time' }}
+
+        </button>
+
+      </div>
+
+    }
+
+    @if (successMessage) {
+
+      <p class="success-message">
+        {{ successMessage }}
+      </p>
+
+    }
+
+
   </div>
 
 }
