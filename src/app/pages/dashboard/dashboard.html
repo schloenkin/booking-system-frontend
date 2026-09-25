@@ -24,9 +24,12 @@
 
     @for (booking of bookings; track booking.id) {
 
-      <div class="booking-card">
+      <a
+        [routerLink]="['/bookings', booking.id]"
+        class="booking-card"
+      >
 
-        <h2>
+      <h2>
           {{ getServiceName(booking.serviceId) }}
         </h2>
 
@@ -52,7 +55,7 @@
         </p>
 
 
-      </div>
+      </a>
 
     }
 

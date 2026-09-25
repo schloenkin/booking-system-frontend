@@ -12,7 +12,31 @@ export class SlotPicker {
 
   @Output() slotSelected = new EventEmitter<string>();
 
-  slots: string[] = ['09:00', '10:00', '11:00', '13:00', '14:00'];
+  allSlots: string[] = ['09:00', '10:00', '11:00', '13:00', '14:00'];
+
+  get availableSlots(): string[] {
+    if (!this.selectedDate) {
+      return [];
+    }
+
+    const today = new Date().toISOString().split('T')[0];
+
+    if (this.selectedDate !== today) {
+      return this.allSlots;
+    }
+
+    const now = new Date();
+
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+    return this.allSlots.filter((slot) => {
+      const [hours, minutes] = slot.split(':').map(Number);
+
+      const slotMinutes = hours * 60 + minutes;
+
+      return slotMinutes > currentMinutes;
+    });
+  }
 
   selectedSlot = '';
 

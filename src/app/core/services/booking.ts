@@ -17,7 +17,16 @@ export class BookingService {
   getBookings(): Observable<PageResponse<BookingResponse>> {
     return this.http.get<PageResponse<BookingResponse>>(this.apiUrl);
   }
+
   createBooking(request: BookingCreateRequest): Observable<BookingResponse> {
     return this.http.post<BookingResponse>(this.apiUrl, request);
+  }
+
+  cancelBooking(id: number): Observable<BookingResponse> {
+    return this.http.put<BookingResponse>(`${this.apiUrl}/${id}/cancel`, {});
+  }
+
+  getBookingById(id: number): Observable<BookingResponse> {
+    return this.http.get<BookingResponse>(`${this.apiUrl}/${id}`);
   }
 }

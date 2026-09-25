@@ -1,0 +1,61 @@
+@if (booking) {
+
+  <a routerLink="/dashboard">
+    ← Back to My Bookings
+  </a>
+
+  <h1>Booking Details</h1>
+
+  <div class="booking-detail">
+
+    <p>
+      <strong>ID:</strong>
+      {{ booking.id }}
+    </p>
+
+    <p>
+      <strong>Service:</strong>
+      {{ getServiceName(booking.serviceId) }}
+    </p>
+
+    <p>
+      <strong>Date:</strong>
+      {{ booking.startTime | date:'dd.MM.yyyy, HH:mm' }}
+    </p>
+
+    <p>
+      <strong>End:</strong>
+      {{ booking.endTime | date:'HH:mm' }}
+    </p>
+
+    <p>
+      <strong>Status:</strong>
+
+      <span
+        class="status-badge"
+        [class.pending]="booking.status === 'PENDING'"
+        [class.confirmed]="booking.status === 'CONFIRMED'"
+        [class.cancelled]="booking.status === 'CANCELLED'"
+      >
+    {{ booking.status }}
+  </span>
+
+    </p>
+
+
+    @if (booking.status !== 'CANCELLED') {
+
+      <button
+        type="button"
+        (click)="cancelBooking()"
+        [disabled]="isCancelling">
+
+        {{ isCancelling ? 'Cancelling...' : 'Cancel Booking' }}
+
+      </button>
+
+    }
+
+  </div>
+
+}
