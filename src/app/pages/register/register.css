@@ -1,4 +1,4 @@
-.login-container {
+.register-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -7,17 +7,7 @@
 }
 
 
-.login-container h1 {
-  margin-bottom: 10px;
-}
-
-
-.login-container p {
-  margin-bottom: 30px;
-}
-
-
-.login-container form {
+.register-container form {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -25,14 +15,14 @@
 }
 
 
-.login-container input {
+.register-container input {
   padding: 12px;
   border-radius: 8px;
   border: 1px solid #ccc;
 }
 
 
-.login-container button {
+.register-container button {
   padding: 12px;
   border-radius: 8px;
   border: none;
@@ -42,11 +32,6 @@
 }
 
 
-.login-container button:hover {
-  background-color: #badbcc;
-}
-
-
-.login-container a {
+.register-container a {
   margin-top: 20px;
 }

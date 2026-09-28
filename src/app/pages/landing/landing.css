@@ -1,0 +1,40 @@
+.landing-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+
+.landing-container h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+
+.landing-container p {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+
+.landing-actions {
+  display: flex;
+  gap: 16px;
+}
+
+
+.landing-button {
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  color: inherit;
+}
+
+
+.landing-button.primary {
+  background-color: #d1e7dd;
+}
