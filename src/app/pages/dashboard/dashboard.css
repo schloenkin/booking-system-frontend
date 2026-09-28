@@ -94,3 +94,30 @@
   color: #842029;
   font-weight: 600;
 }
+
+
+.booking-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.booking-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+
+.booking-card-header h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #222;
+}
+
+
+.booking-info p {
+  margin: 8px 0;
+}

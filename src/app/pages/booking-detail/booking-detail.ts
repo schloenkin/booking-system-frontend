@@ -2,6 +2,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { forkJoin } from 'rxjs';
 
 import { BookingService } from '../../core/services/booking';
 import { BookingResponse } from '../../core/models/booking-response';
@@ -36,26 +37,22 @@ export class BookingDetail implements OnInit {
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
-    this.bookingService.getBookingById(id).subscribe({
-      next: (booking) => {
+    forkJoin({
+      booking: this.bookingService.getBookingById(id),
+      services: this.bookableServiceService.getAllServices(),
+    }).subscribe({
+      next: ({ booking, services }) => {
         this.booking = booking;
+        this.services = services;
 
         console.log('BOOKING DETAIL:', booking);
+        console.log('SERVICES:', services);
 
         this.cdr.detectChanges();
       },
 
       error: (error) => {
-        console.error('LOAD BOOKING ERROR:', error);
-      },
-    });
-
-    this.bookableServiceService.getAllServices().subscribe({
-      next: (services) => {
-        this.services = services;
-      },
-      error: (error) => {
-        console.error('LOAD SERVICES ERROR:', error);
+        console.error('LOAD DATA ERROR:', error);
       },
     });
   }

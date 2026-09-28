@@ -42,19 +42,31 @@
         class="booking-card"
       >
 
-        <h2>
-          {{ getServiceName(booking.serviceId) }}
-        </h2>
+        <div class="booking-card-header">
+          <h2>
+            {{ getServiceName(booking.serviceId) }}
+          </h2>
+        </div>
 
-        <p>
-          <strong>Time:</strong>
-          {{ booking.startTime | date:'dd.MM.yyyy, HH:mm' }}
-          -
-          {{ booking.endTime | date:'HH:mm' }}
-        </p>
+        <div class="booking-info">
 
-        <p>
-          <strong>Status:</strong>
+          <p>
+            <strong>Date:</strong>
+            {{ booking.startTime | date:'dd.MM.yyyy' }}
+          </p>
+
+          <p>
+            <strong>Time:</strong>
+            {{ booking.startTime | date:'HH:mm' }}
+            -
+            {{ booking.endTime | date:'HH:mm' }}
+          </p>
+
+        </div>
+
+        <div class="status-row">
+          <strong>Status</strong>
+
 
           <span
             class="status-badge"
@@ -62,10 +74,10 @@
             [class.confirmed]="booking.status === 'CONFIRMED'"
             [class.cancelled]="booking.status === 'CANCELLED'"
           >
-          {{ booking.status }}
-        </span>
+              {{ booking.status }}
+          </span>
 
-        </p>
+        </div>
 
       </a>
 
@@ -93,16 +105,27 @@
         class="booking-card past-booking"
       >
 
-        <h2>
-          {{ getServiceName(booking.serviceId) }}
-        </h2>
+        <div class="booking-card-header">
+          <h2>
+            {{ getServiceName(booking.serviceId) }}
+          </h2>
+        </div>
 
-        <p>
-          <strong>Time:</strong>
-          {{ booking.startTime | date:'dd.MM.yyyy, HH:mm' }}
-          -
-          {{ booking.endTime | date:'HH:mm' }}
-        </p>
+        <div class="booking-info">
+
+          <p>
+            <strong>Date:</strong>
+            {{ booking.startTime | date:'dd.MM.yyyy' }}
+          </p>
+
+          <p>
+            <strong>Time:</strong>
+            {{ booking.startTime | date:'HH:mm' }}
+            -
+            {{ booking.endTime | date:'HH:mm' }}
+          </p>
+
+        </div>
 
         <p>
           <strong>Status:</strong>
@@ -113,8 +136,8 @@
             [class.confirmed]="booking.status === 'CONFIRMED'"
             [class.cancelled]="booking.status === 'CANCELLED'"
           >
-          {{ booking.status }}
-        </span>
+    {{ booking.status }}
+  </span>
 
         </p>
 

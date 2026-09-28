@@ -19,3 +19,105 @@
   background-color: #f8d7da;
   color: #842029;
 }
+
+
+.booking-detail {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 500px;
+}
+
+.booking-detail h2 {
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+
+.booking-info p {
+  margin: 10px 0;
+}
+
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+
+.booking-detail button {
+  margin-top: 20px;
+  margin-right: 10px;
+  padding: 10px 18px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.booking-detail button:hover {
+  transform: translateY(-2px);
+}
+
+.booking-detail button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.booking-detail button:first-of-type {
+  background-color: #f8d7da;
+  color: #842029;
+}
+
+.booking-detail button:last-of-type {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+
+.reschedule-form {
+  margin-top: 24px;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background-color: #fafafa;
+}
+
+.reschedule-form h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+
+.reschedule-form button {
+  margin-top: 20px;
+}
+
+
+.success-message {
+  margin-top: 20px;
+  color: #0f5132;
+  font-weight: bold;
+}
+
+
+.back-button {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 10px 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  background-color: white;
+  font-weight: 600;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: #f5f5f5;
+  transform: translateY(-2px);
+}

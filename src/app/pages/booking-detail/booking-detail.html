@@ -1,35 +1,50 @@
 @if (booking) {
 
-  <a routerLink="/dashboard">
+  <a
+    routerLink="/dashboard"
+    class="back-button"
+  >
     ← Back to My Bookings
   </a>
+
 
   <h1>Booking Details</h1>
 
   <div class="booking-detail">
 
-    <p>
-      <strong>ID:</strong>
-      {{ booking.id }}
-    </p>
-
-    <p>
-      <strong>Service:</strong>
+    <h2>
       {{ getServiceName(booking.serviceId) }}
-    </p>
+    </h2>
 
-    <p>
-      <strong>Date:</strong>
-      {{ booking.startTime | date:'dd.MM.yyyy, HH:mm' }}
-    </p>
 
-    <p>
-      <strong>End:</strong>
-      {{ booking.endTime | date:'HH:mm' }}
-    </p>
+    <div class="booking-info">
 
-    <p>
-      <strong>Status:</strong>
+      <p>
+        <strong>ID:</strong>
+        {{ booking.id }}
+      </p>
+
+
+      <p>
+        <strong>Date:</strong>
+        {{ booking.startTime | date:'dd.MM.yyyy' }}
+      </p>
+
+
+      <p>
+        <strong>Time:</strong>
+        {{ booking.startTime | date:'HH:mm' }}
+        -
+        {{ booking.endTime | date:'HH:mm' }}
+      </p>
+
+
+    </div>
+
+
+    <div class="status-row">
+
+      <strong>Status</strong>
 
       <span
         class="status-badge"
@@ -37,10 +52,10 @@
         [class.confirmed]="booking.status === 'CONFIRMED'"
         [class.cancelled]="booking.status === 'CANCELLED'"
       >
-    {{ booking.status }}
-  </span>
+      {{ booking.status }}
+    </span>
 
-    </p>
+    </div>
 
 
     @if (booking.status !== 'CANCELLED') {
@@ -56,6 +71,7 @@
 
     }
 
+
     @if (booking.status == 'PENDING') {
 
       <button
@@ -68,22 +84,25 @@
 
     }
 
+
     @if (showRescheduleForm) {
 
       <div class="reschedule-form">
 
         <h3>
-          Select new date and time
+          Reschedule Booking
         </h3>
 
         <app-date-picker
           (dateSelected)="onDateSelected($event)">
         </app-date-picker>
 
+
         <app-slot-picker
           [selectedDate]="selectedDate"
           (slotSelected)="onSlotSelected($event)">
         </app-slot-picker>
+
 
         <button
           type="button"
@@ -98,6 +117,7 @@
 
     }
 
+
     @if (successMessage) {
 
       <p class="success-message">
@@ -105,7 +125,6 @@
       </p>
 
     }
-
 
   </div>
 
