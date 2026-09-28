@@ -93,25 +93,30 @@
           Reschedule Booking
         </h3>
 
-        <app-date-picker
-          (dateSelected)="onDateSelected($event)">
-        </app-date-picker>
+
+        <div class="reschedule-content">
+
+          <app-date-picker
+            (dateSelected)="onDateSelected($event)">
+          </app-date-picker>
 
 
-        <app-slot-picker
-          [selectedDate]="selectedDate"
-          (slotSelected)="onSlotSelected($event)">
-        </app-slot-picker>
+          <app-slot-picker
+            [selectedDate]="selectedDate"
+            (slotSelected)="onSlotSelected($event)">
+          </app-slot-picker>
 
 
-        <button
-          type="button"
-          (click)="saveReschedule()"
-          [disabled]="!selectedDate || !selectedSlot || isRescheduling">
+          <button
+            type="button"
+            (click)="saveReschedule()"
+            [disabled]="!selectedDate || !selectedSlot || isRescheduling">
 
-          {{ isRescheduling ? 'Saving...' : 'Save new time' }}
+            {{ isRescheduling ? 'Saving...' : 'Save new time' }}
 
-        </button>
+          </button>
+
+        </div>
 
       </div>
 
