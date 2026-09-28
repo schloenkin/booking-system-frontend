@@ -76,3 +76,21 @@
   background-color: #f8d7da;
   color: #842029;
 }
+
+
+.past-booking {
+  opacity: 0.7;
+}
+
+
+.loading-message {
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+
+.error-message {
+  margin-top: 20px;
+  color: #842029;
+  font-weight: 600;
+}

@@ -16,6 +16,8 @@ import { BookableServiceService, BookableService } from '../../core/services/boo
 export class Dashboard implements OnInit {
   bookings: BookingResponse[] = [];
   services: BookableService[] = [];
+  isLoading = false;
+  errorMessage = '';
 
   constructor(
     private bookingService: BookingService,
@@ -34,9 +36,12 @@ export class Dashboard implements OnInit {
       },
     });
 
+    this.isLoading = true;
+    this.errorMessage = '';
     this.bookingService.getBookings().subscribe({
       next: (response) => {
         this.bookings = response.content;
+        this.isLoading = false;
 
         console.log('BOOKINGS:', response);
 
@@ -44,6 +49,10 @@ export class Dashboard implements OnInit {
       },
 
       error: (error) => {
+        this.isLoading = false;
+
+        this.errorMessage = 'Could not load bookings. Please try again.';
+
         console.error('BOOKINGS ERROR:', error);
       },
     });
@@ -52,5 +61,13 @@ export class Dashboard implements OnInit {
     const service = this.services.find((service) => service.id === serviceId);
 
     return service?.name ?? 'Unknown service';
+  }
+
+  get upcomingBookings(): BookingResponse[] {
+    return this.bookings.filter((booking) => new Date(booking.startTime) >= new Date());
+  }
+
+  get pastBookings(): BookingResponse[] {
+    return this.bookings.filter((booking) => new Date(booking.startTime) < new Date());
   }
 }
