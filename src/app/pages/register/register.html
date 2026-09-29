@@ -8,19 +8,31 @@
     Register to start managing your bookings.
   </p>
 
-  <form>
+  <form [formGroup]="registerForm"
+        (ngSubmit)="onSubmit()"
+  >
 
 
     <input
       type="email"
       placeholder="Email"
+      formControlName="email"
     >
 
 
     <input
       type="password"
       placeholder="Password"
+      formControlName="password"
     >
+
+
+    <input
+      type="password"
+      placeholder="Confirm Password"
+      formControlName="confirmPassword"
+    >
+
 
 
     <button type="submit">
