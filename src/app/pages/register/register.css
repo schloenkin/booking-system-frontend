@@ -35,3 +35,10 @@
 .register-container a {
   margin-top: 20px;
 }
+
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../core/services/auth';
@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
   styleUrl: './register.css',
 })
 export class Register {
+  errorMessage = '';
+
   registerForm = new FormGroup({
     email: new FormControl('', {
       nonNullable: true,
@@ -32,9 +34,12 @@ export class Register {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private cd: ChangeDetectorRef,
   ) {}
 
   onSubmit(): void {
+    this.errorMessage = '';
+
     if (this.registerForm.invalid) {
       return;
     }
@@ -59,7 +64,20 @@ export class Register {
       },
 
       error: (error) => {
-        console.error('REGISTER ERROR:', error);
+        if (error.status === 409) {
+          this.errorMessage = 'Email already exists';
+          this.cd.detectChanges();
+          return;
+        }
+
+        if (error.status === 400) {
+          this.errorMessage = 'Invalid registration data';
+          this.cd.detectChanges();
+          return;
+        }
+
+        this.errorMessage = 'Registration failed. Please try again.';
+        this.cd.detectChanges();
       },
     });
   }

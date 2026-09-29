@@ -34,13 +34,17 @@
     >
 
 
-
     <button type="submit">
       Sign Up
     </button>
 
   </form>
 
+  @if (errorMessage) {
+    <p class="error-message">
+      {{ errorMessage }}
+    </p>
+  }
 
   <a routerLink="/login">
     Already have an account? Sign In
