@@ -4,7 +4,8 @@ import { RouterLink } from '@angular/router';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { BookableServiceService, BookableService } from '../../core/services/bookable-service';
-
+import { AuthService } from '../../core/services/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,6 +23,8 @@ export class Dashboard implements OnInit {
   constructor(
     private bookingService: BookingService,
     private bookableServiceService: BookableServiceService,
+    private authService: AuthService,
+    private router: Router,
     private cdr: ChangeDetectorRef,
   ) {}
 
@@ -69,5 +72,11 @@ export class Dashboard implements OnInit {
 
   get pastBookings(): BookingResponse[] {
     return this.bookings.filter((booking) => new Date(booking.startTime) < new Date());
+  }
+
+  logout(): void {
+    this.authService.logout();
+
+    this.router.navigate(['/login']);
   }
 }

@@ -27,6 +27,14 @@ export class AuthService {
   register(request: RegisterRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/register`, request);
   }
+
+  logout(): void {
+    sessionStorage.removeItem('accessToken');
+  }
+
+  isAuthenticated(): boolean {
+    return !!sessionStorage.getItem('accessToken');
+  }
 }
 
 export interface UserResponse {
