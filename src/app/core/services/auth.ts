@@ -30,10 +30,25 @@ export class AuthService {
 
   logout(): void {
     sessionStorage.removeItem('accessToken');
+    sessionStorage.removeItem("user");
   }
 
   isAuthenticated(): boolean {
     return !!sessionStorage.getItem('accessToken');
+  }
+
+  saveUser(user: UserResponse): void {
+    sessionStorage.setItem('user', JSON.stringify(user));
+  }
+
+  getCurrentUser(): UserResponse | null {
+    const user = sessionStorage.getItem('user');
+
+    if (!user) {
+      return null;
+    }
+
+    return JSON.parse(user);
   }
 }
 

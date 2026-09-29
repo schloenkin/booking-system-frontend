@@ -17,6 +17,16 @@
 
     <h1>My Bookings</h1>
 
+    @if (currentUser) {
+      <p>
+        Welcome, {{ currentUser.email }}
+      </p>
+
+      <p>
+        Role: {{ currentUser.role }}
+      </p>
+    }
+
     <button (click)="logout()">
       Logout
     </button>

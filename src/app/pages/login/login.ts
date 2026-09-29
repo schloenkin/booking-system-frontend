@@ -40,6 +40,8 @@ export class Login {
       next: (response) => {
         sessionStorage.setItem('accessToken', response.accessToken);
 
+        this.authService.saveUser(response.user);
+
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/dashboard';
 
         this.router.navigate([returnUrl]);

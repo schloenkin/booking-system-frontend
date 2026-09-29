@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { BookableServiceService, BookableService } from '../../core/services/bookable-service';
-import { AuthService } from '../../core/services/auth';
+import { AuthService, UserResponse } from '../../core/services/auth';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,6 +19,7 @@ export class Dashboard implements OnInit {
   services: BookableService[] = [];
   isLoading = false;
   errorMessage = '';
+  currentUser: UserResponse | null = null;
 
   constructor(
     private bookingService: BookingService,
@@ -29,6 +30,8 @@ export class Dashboard implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.currentUser = this.authService.getCurrentUser();
+
     this.bookableServiceService.getAllServices().subscribe({
       next: (services) => {
         this.services = services;
