@@ -6,6 +6,8 @@ import { BookingDetail } from './pages/booking-detail/booking-detail';
 import { Landing } from './pages/landing/landing';
 import { Register } from './pages/register/register';
 import { authGuard } from './core/guards/auth-guard';
+import { adminGuard } from './core/guards/admin-guard';
+import { Admin } from './pages/admin/admin';
 
 export const routes: Routes = [
   {
@@ -20,6 +22,11 @@ export const routes: Routes = [
     path: 'dashboard',
     component: Dashboard,
     canActivate: [authGuard],
+  },
+  {
+    path: 'admin',
+    component: Admin,
+    canActivate: [authGuard, adminGuard],
   },
   {
     path: 'create-booking',

@@ -1,0 +1,79 @@
+<div class="admin-container">
+
+  <h1>
+    Admin Dashboard
+  </h1>
+
+  <h2>
+    Users
+  </h2>
+
+
+  <table>
+
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Email</th>
+      <th>Role</th>
+    </tr>
+    </thead>
+
+
+    <tbody>
+
+      @for (user of users; track user.id) {
+
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+        </tr>
+
+      }
+
+    </tbody>
+
+  </table>
+
+  <h2>
+    Bookings
+  </h2>
+
+
+  <table>
+
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>User ID</th>
+      <th>Service ID</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+
+
+    <tbody>
+
+      @for (booking of bookings; track booking.id) {
+
+        <tr>
+          <td>{{ booking.id }}</td>
+          <td>{{ booking.userId }}</td>
+          <td>{{ booking.serviceId }}</td>
+          <td>{{ booking.startTime }}</td>
+          <td>{{ booking.endTime }}</td>
+          <td>{{ booking.status }}</td>
+        </tr>
+
+      }
+
+    </tbody>
+
+  </table>
+
+
+
+</div>
