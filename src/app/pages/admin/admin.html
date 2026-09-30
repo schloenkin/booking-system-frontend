@@ -4,6 +4,8 @@
     Admin Dashboard
   </h1>
 
+  <section class="admin-section">
+
   <h2>
     Users
   </h2>
@@ -36,6 +38,10 @@
 
   </table>
 
+  </section>
+
+  <section class="admin-section">
+
   <h2>
     Bookings
   </h2>
@@ -46,11 +52,12 @@
     <thead>
     <tr>
       <th>ID</th>
-      <th>User ID</th>
-      <th>Service ID</th>
+      <th>Customer</th>
+      <th>Service</th>
       <th>Start</th>
       <th>End</th>
       <th>Status</th>
+      <th>Actions</th>
     </tr>
     </thead>
 
@@ -61,11 +68,32 @@
 
         <tr>
           <td>{{ booking.id }}</td>
-          <td>{{ booking.userId }}</td>
-          <td>{{ booking.serviceId }}</td>
-          <td>{{ booking.startTime }}</td>
-          <td>{{ booking.endTime }}</td>
-          <td>{{ booking.status }}</td>
+          <td>{{ getUserEmail(booking.userId) }}</td>
+          <td>{{ getServiceName(booking.serviceId) }}</td>
+          <td>{{ booking.startTime | date:'dd.MM.yyyy HH:mm' }}</td>
+          <td>{{ booking.endTime | date:'dd.MM.yyyy HH:mm' }}</td>
+          <td>
+            <span [class]="getStatusClass(booking.status)">
+              {{ booking.status }}
+            </span>
+          </td>
+          <td>
+
+            @if (booking.status === 'PENDING') {
+
+              <button (click)="confirmBooking(booking.id)">
+                Confirm
+              </button>
+
+              <button (click)="cancelBooking(booking.id)">
+                Cancel
+              </button>
+
+            }
+
+          </td>
+
+
         </tr>
 
       }
@@ -74,6 +102,98 @@
 
   </table>
 
+  </section>
+
+  <section class="admin-section">
+    <h2>
+      Services
+    </h2>
+
+    <h2>
+      Create Service
+    </h2>
+
+
+    <input
+      placeholder="Service name"
+      [(ngModel)]="newService.name"
+    />
+
+
+    <input
+      placeholder="Description"
+      [(ngModel)]="newService.description"
+    />
+
+
+    <input
+      type="number"
+      placeholder="Duration minutes"
+      [(ngModel)]="newService.durationMinutes"
+    />
+
+
+    <button
+      (click)="createService()"
+    >
+      Create
+    </button>
+
+
+    <table>
+
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Duration</th>
+      <th>Active</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+
+
+    <tbody>
+
+      @for (service of services; track service.id) {
+
+        <tr>
+          <td>{{ service.id }}</td>
+          <td>{{ service.name }}</td>
+          <td>{{ service.description }}</td>
+          <td>{{ service.durationMinutes }} min</td>
+          <td>
+
+            <span [class]="getActiveClass(service.active)">
+
+              {{ getActiveLabel(service.active) }}
+
+            </span>
+
+          </td>
+          <td>
+
+            <button
+              (click)="toggleService(service)"
+            >
+
+              {{ service.active ? 'Deactivate' : 'Activate' }}
+
+            </button>
+
+          </td>
+
+
+        </tr>
+
+      }
+
+    </tbody>
+
+  </table>
+
+    </section>
 
 
 </div>

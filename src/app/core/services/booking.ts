@@ -27,6 +27,10 @@ export class BookingService {
     return this.http.put<BookingResponse>(`${this.apiUrl}/${id}/cancel`, {});
   }
 
+  confirmBooking(id: number): Observable<BookingResponse> {
+    return this.http.put<BookingResponse>(`${this.apiUrl}/${id}/confirm`, {});
+  }
+
   rescheduleBooking(id: number, request: BookingRescheduleRequest): Observable<BookingResponse> {
     return this.http.put<BookingResponse>(`${this.apiUrl}/${id}/reschedule`, request);
   }
