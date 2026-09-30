@@ -221,4 +221,14 @@ export class Admin implements OnInit {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
+  openSection(section: string): void {
+    this.showUsers = section === 'users';
+
+    this.showBookings = section === 'bookings';
+
+    this.showServices = section === 'services';
+
+    this.showMyBookings = section === 'myBookings';
+  }
 }

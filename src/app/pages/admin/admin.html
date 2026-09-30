@@ -8,12 +8,78 @@
     </h1>
 
     <button
-      class="logout-button"
+      class="btn btn-primary"
       (click)="logout()">
       Logout
     </button>
 
+
   </div>
+
+  <nav class="admin-nav">
+
+    <button (click)="openSection('users')">
+      Users
+    </button>
+
+    <button (click)="openSection('bookings')">
+      Bookings
+    </button>
+
+    <button (click)="openSection('services')">
+      Services
+    </button>
+
+    <button (click)="openSection('myBookings')">
+      My Bookings
+    </button>
+
+  </nav>
+
+  <div class="summary-cards">
+
+
+    <div class="summary-card">
+
+      <h3>
+        Users
+      </h3>
+
+      <p>
+        {{ users.length }}
+      </p>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <h3>
+        Bookings
+      </h3>
+
+      <p>
+        {{ bookings.length }}
+      </p>
+
+    </div>
+
+
+    <div class="summary-card">
+
+      <h3>
+        Services
+      </h3>
+
+      <p>
+        {{ services.length }}
+      </p>
+
+    </div>
+
+
+  </div>
+
 
 
   <section class="admin-section">
@@ -115,13 +181,19 @@
 
             @if (booking.status === 'PENDING') {
 
-              <button (click)="confirmBooking(booking.id)">
+              <button
+                class="btn btn-success"
+                (click)="confirmBooking(booking.id)">
                 Confirm
               </button>
 
-              <button (click)="cancelBooking(booking.id)">
+
+              <button
+                class="btn btn-danger"
+                (click)="cancelBooking(booking.id)">
                 Cancel
               </button>
+
 
             }
 
@@ -173,9 +245,11 @@
         />
 
         <button
+          class="btn btn-primary"
           (click)="createService()">
           Create
         </button>
+
 
       </div>
 
@@ -212,6 +286,7 @@
 
               <td>
                 <button
+                  class="btn btn-secondary"
                   (click)="toggleService(service)">
                   {{ service.active ? 'Deactivate' : 'Activate' }}
                 </button>
