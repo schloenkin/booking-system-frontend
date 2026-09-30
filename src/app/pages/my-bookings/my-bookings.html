@@ -1,0 +1,97 @@
+<div class="my-bookings-container">
+
+
+  @if (isLoading) {
+
+    <p>
+      Loading bookings...
+    </p>
+
+  }
+
+
+  @if (errorMessage) {
+
+    <p>
+      {{ errorMessage }}
+    </p>
+
+  }
+
+
+  <h2>
+    Upcoming ({{ upcomingBookings.length }})
+  </h2>
+
+
+  @for (booking of upcomingBookings; track booking.id) {
+
+    <a
+      [routerLink]="['/bookings', booking.id]"
+      class="booking-card"
+    >
+
+      <h3>
+        {{ getServiceName(booking.serviceId) }}
+      </h3>
+
+
+      <p>
+        Date:
+        {{ booking.startTime | date:'dd.MM.yyyy' }}
+      </p>
+
+
+      <p>
+        Time:
+        {{ booking.startTime | date:'HH:mm' }}
+        -
+        {{ booking.endTime | date:'HH:mm' }}
+      </p>
+
+
+      <p>
+        Status:
+        {{ booking.status }}
+      </p>
+
+    </a>
+
+  }
+
+
+  <h2>
+    Past ({{ pastBookings.length }})
+  </h2>
+
+
+  @for (booking of pastBookings; track booking.id) {
+
+    <a
+      [routerLink]="['/bookings', booking.id]"
+      class="booking-card"
+    >
+
+
+    <h3>
+        {{ getServiceName(booking.serviceId) }}
+      </h3>
+
+
+      <p>
+        Date:
+        {{ booking.startTime | date:'dd.MM.yyyy' }}
+      </p>
+
+
+      <p>
+        Status:
+        {{ booking.status }}
+      </p>
+
+    </a>
+
+  }
+
+
+</div>

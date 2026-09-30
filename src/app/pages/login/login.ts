@@ -42,9 +42,19 @@ export class Login {
 
         this.authService.saveUser(response.user);
 
-        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/dashboard';
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
 
-        this.router.navigate([returnUrl]);
+        if (returnUrl) {
+          this.router.navigate([returnUrl]);
+          return;
+        }
+
+        if (response.user.role === 'ADMIN') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/dashboard']);
+        }
+
       },
 
       error: (error) => {

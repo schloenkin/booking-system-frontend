@@ -5,11 +5,13 @@ import { BookingResponse } from '../../core/models/booking-response';
 import { BookableServiceService, BookableService } from '../../core/services/bookable-service';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../core/services/auth';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [DatePipe, FormsModule],
+  imports: [DatePipe, FormsModule, RouterLink],
   templateUrl: './admin.html',
   styleUrl: './admin.css',
 })
@@ -18,17 +20,24 @@ export class Admin implements OnInit {
   isLoading = true;
   bookings: BookingResponse[] = [];
   services: BookableService[] = [];
+  myBookings: BookingResponse[] = [];
   newService = {
     name: '',
     description: '',
     durationMinutes: 60,
   };
+  showUsers = true;
+  showBookings = true;
+  showServices = true;
+  showMyBookings = true;
 
   constructor(
     private userService: UserService,
     private bookingService: BookingService,
     private bookableServiceService: BookableServiceService,
     private cd: ChangeDetectorRef,
+    private authService: AuthService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +66,10 @@ export class Admin implements OnInit {
     this.bookingService.getBookings().subscribe({
       next: (page) => {
         this.bookings = page.content;
+
+        this.myBookings = page.content.filter(
+          (booking) => booking.userId === this.authService.getCurrentUser()?.id,
+        );
 
         this.cd.detectChanges();
 
@@ -145,6 +158,23 @@ export class Admin implements OnInit {
       });
     }
   }
+
+  toggleUsers(): void {
+    this.showUsers = !this.showUsers;
+  }
+
+  toggleMyBookings(): void {
+    this.showMyBookings = !this.showMyBookings;
+  }
+
+  toggleBookings(): void {
+    this.showBookings = !this.showBookings;
+  }
+
+  toggleServices(): void {
+    this.showServices = !this.showServices;
+  }
+
   confirmBooking(id: number): void {
     this.bookingService.confirmBooking(id).subscribe({
       next: () => {
@@ -185,5 +215,10 @@ export class Admin implements OnInit {
         console.error('CREATE SERVICE ERROR:', error);
       },
     });
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

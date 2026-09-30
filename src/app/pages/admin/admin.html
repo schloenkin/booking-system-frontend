@@ -1,19 +1,42 @@
 <div class="admin-container">
 
-  <h1>
-    Admin Dashboard
-  </h1>
+
+  <div class="admin-header">
+
+    <h1>
+      Admin Dashboard
+    </h1>
+
+    <button
+      class="logout-button"
+      (click)="logout()">
+      Logout
+    </button>
+
+  </div>
+
 
   <section class="admin-section">
 
-  <h2>
-    Users
-  </h2>
+    <div class="section-header" (click)="toggleUsers()">
+
+      <h2>
+        Users
+      </h2>
+
+      <span>
+    {{ showUsers ? '▲' : '▼' }}
+  </span>
+
+    </div>
 
 
-  <table>
+    @if (showUsers) {
 
-    <thead>
+      <table>
+
+
+      <thead>
     <tr>
       <th>ID</th>
       <th>Email</th>
@@ -37,17 +60,28 @@
     </tbody>
 
   </table>
-
+    }
   </section>
 
   <section class="admin-section">
 
-  <h2>
-    Bookings
-  </h2>
+    <div class="section-header" (click)="toggleBookings()">
+
+      <h2>
+        Bookings
+      </h2>
+
+      <span>
+    {{ showBookings ? '▲' : '▼' }}
+  </span>
+
+    </div>
 
 
-  <table>
+    @if (showBookings) {
+
+      <table>
+
 
     <thead>
     <tr>
@@ -101,99 +135,173 @@
     </tbody>
 
   </table>
-
+    }
   </section>
 
   <section class="admin-section">
-    <h2>
-      Services
-    </h2>
+    <div class="section-header" (click)="toggleServices()">
 
-    <h2>
-      Create Service
-    </h2>
+      <h2>
+        Services
+      </h2>
 
+      <span>
+    {{ showServices ? '▲' : '▼' }}
+  </span>
 
-    <input
-      placeholder="Service name"
-      [(ngModel)]="newService.name"
-    />
+    </div>
 
 
-    <input
-      placeholder="Description"
-      [(ngModel)]="newService.description"
-    />
+    @if (showServices) {
+
+      <div class="service-form">
+
+        <input
+          placeholder="Service name"
+          [(ngModel)]="newService.name"
+        />
+
+        <input
+          placeholder="Description"
+          [(ngModel)]="newService.description"
+        />
+
+        <input
+          type="number"
+          placeholder="Duration minutes"
+          [(ngModel)]="newService.durationMinutes"
+        />
+
+        <button
+          (click)="createService()">
+          Create
+        </button>
+
+      </div>
 
 
-    <input
-      type="number"
-      placeholder="Duration minutes"
-      [(ngModel)]="newService.durationMinutes"
-    />
+      <table>
 
-
-    <button
-      (click)="createService()"
-    >
-      Create
-    </button>
-
-
-    <table>
-
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Duration</th>
-      <th>Active</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-
-
-    <tbody>
-
-      @for (service of services; track service.id) {
-
+        <thead>
         <tr>
-          <td>{{ service.id }}</td>
-          <td>{{ service.name }}</td>
-          <td>{{ service.description }}</td>
-          <td>{{ service.durationMinutes }} min</td>
-          <td>
-
-            <span [class]="getActiveClass(service.active)">
-
-              {{ getActiveLabel(service.active) }}
-
-            </span>
-
-          </td>
-          <td>
-
-            <button
-              (click)="toggleService(service)"
-            >
-
-              {{ service.active ? 'Deactivate' : 'Activate' }}
-
-            </button>
-
-          </td>
-
-
+          <th>ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Duration</th>
+          <th>Active</th>
+          <th>Actions</th>
         </tr>
+        </thead>
 
-      }
 
-    </tbody>
+        <tbody>
 
-  </table>
+          @for (service of services; track service.id) {
+
+            <tr>
+              <td>{{ service.id }}</td>
+              <td>{{ service.name }}</td>
+              <td>{{ service.description }}</td>
+              <td>{{ service.durationMinutes }} min</td>
+
+              <td>
+            <span [class]="getActiveClass(service.active)">
+              {{ getActiveLabel(service.active) }}
+            </span>
+              </td>
+
+              <td>
+                <button
+                  (click)="toggleService(service)">
+                  {{ service.active ? 'Deactivate' : 'Activate' }}
+                </button>
+              </td>
+
+            </tr>
+
+          }
+
+        </tbody>
+
+      </table>
+
+    }
 
     </section>
+  <section class="admin-section">
+
+    <div class="section-header" (click)="toggleMyBookings()">
+
+      <h2>
+        My Bookings
+      </h2>
+
+      <span>
+      {{ showMyBookings ? '▲' : '▼' }}
+    </span>
+
+    </div>
+
+
+    @if (showMyBookings) {
+
+      <div class="booking-grid">
+
+        @for (booking of myBookings; track booking.id) {
+
+          <a
+            [routerLink]="['/bookings', booking.id]"
+            class="booking-card"
+          >
+
+            <div class="booking-card-header">
+
+              <h2>
+                {{ getServiceName(booking.serviceId) }}
+              </h2>
+
+            </div>
+
+
+            <div class="booking-info">
+
+              <p>
+                <strong>Date:</strong>
+                {{ booking.startTime | date:'dd.MM.yyyy' }}
+              </p>
+
+
+              <p>
+                <strong>Time:</strong>
+                {{ booking.startTime | date:'HH:mm' }}
+                -
+                {{ booking.endTime | date:'HH:mm' }}
+              </p>
+
+
+            </div>
+
+
+            <div class="status-row">
+
+              <strong>Status</strong>
+
+              <span [class]="getStatusClass(booking.status)">
+              {{ booking.status }}
+            </span>
+
+            </div>
+
+          </a>
+
+        }
+
+      </div>
+
+    }
+
+  </section>
 
 
 </div>
+
