@@ -1,59 +1,83 @@
-# BookingSystemFrontend
+# Booking System Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.8.
+Angular frontend for the Booking System application.
 
-## Development server
+The frontend communicates with a Spring Boot REST API and provides
+separate workflows for regular users and administrators.
 
-To start a local development server, run:
+## Current Features
 
-```bash
-ng serve
-```
+### Authentication
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Login
+- Logout
+- JWT-based authentication
+- USER and ADMIN roles
+- Protected admin routes
 
-## Code scaffolding
+### User Dashboard
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- View personal bookings
+- Create bookings
+- View booking details
+- Cancel bookings
+- Reschedule bookings
+- Display booking status
 
-```bash
-ng generate component component-name
-```
+### Admin Dashboard
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- User overview
+- Booking management
+- Service management
+- My Bookings
+- Accordion-based sections
+- Section navigation
+- Dynamic Users, Bookings and Services counters
 
-```bash
-ng generate --help
-```
+### Booking Management
 
-## Building
+Administrators can:
 
-To build the project run:
+- View all bookings
+- View customer information
+- View services
+- Confirm pending bookings
+- Cancel pending bookings
 
-```bash
-ng build
-```
+### Service Management
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Administrators can:
 
-## Running unit tests
+- Create services
+- Set service description
+- Set service duration
+- Activate services
+- Deactivate services
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Technology Stack
 
-```bash
-ng test
-```
+- Angular 22
+- TypeScript
+- HTML
+- CSS
+- Angular Router
+- RxJS
 
-## Running end-to-end tests
+## Backend
 
-For end-to-end (e2e) testing, run:
+The frontend communicates with a separate Spring Boot backend
+through a REST API.
 
-```bash
-ng e2e
-```
+The backend is responsible for authentication, authorization,
+business logic and persistence.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Current Project Status
 
-## Additional Resources
+The main frontend workflows are implemented and functional.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+The Admin Dashboard currently includes Users, Bookings, Services
+and My Bookings sections, dynamic counters and custom
+instrument-style dashboard gauges.
+
+Further development will focus on TypeScript, CSS, HTML and Angular
+as part of the practical learning process.

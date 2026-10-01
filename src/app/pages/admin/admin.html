@@ -36,47 +36,69 @@
 
   </nav>
 
-  <div class="summary-cards">
+  <div class="dashboard-gauges">
 
+    <div class="gauge-card">
 
-    <div class="summary-card">
+      <div class="gauge">
 
-      <h3>
-        Users
-      </h3>
+        <div class="gauge-ticks"></div>
 
-      <p>
-        {{ users.length }}
-      </p>
+        <div class="gauge-center">
+        <span class="gauge-value">
+          {{ users.length }}
+        </span>
 
-    </div>
+          <span class="gauge-label">
+          USERS
+        </span>
+        </div>
 
-
-    <div class="summary-card">
-
-      <h3>
-        Bookings
-      </h3>
-
-      <p>
-        {{ bookings.length }}
-      </p>
+      </div>
 
     </div>
 
 
-    <div class="summary-card">
+    <div class="gauge-card">
 
-      <h3>
-        Services
-      </h3>
+      <div class="gauge">
 
-      <p>
-        {{ services.length }}
-      </p>
+        <div class="gauge-ticks"></div>
+
+        <div class="gauge-center">
+        <span class="gauge-value">
+          {{ bookings.length }}
+        </span>
+
+          <span class="gauge-label">
+          BOOKINGS
+        </span>
+        </div>
+
+      </div>
 
     </div>
 
+
+    <div class="gauge-card">
+
+      <div class="gauge">
+
+        <div class="gauge-ticks"></div>
+
+        <div class="gauge-center">
+        <span class="gauge-value">
+          {{ services.length }}
+        </span>
+
+          <span class="gauge-label">
+          SERVICES
+        </span>
+        </div>
+
+      </div>
+
+    </div>
 
   </div>
 
@@ -181,21 +203,24 @@
 
             @if (booking.status === 'PENDING') {
 
-              <button
-                class="btn btn-success"
-                (click)="confirmBooking(booking.id)">
-                Confirm
-              </button>
+              <div class="action-buttons">
 
+                <button
+                  class="btn btn-success"
+                  (click)="confirmBooking(booking.id)">
+                  Confirm
+                </button>
 
-              <button
-                class="btn btn-danger"
-                (click)="cancelBooking(booking.id)">
-                Cancel
-              </button>
+                <button
+                  class="btn btn-danger"
+                  (click)="cancelBooking(booking.id)">
+                  Cancel
+                </button>
 
+              </div>
 
             }
+
 
           </td>
 
@@ -286,10 +311,13 @@
 
               <td>
                 <button
-                  class="btn btn-secondary"
+                  class="btn"
+                  [class.btn-success]="!service.active"
+                  [class.btn-warning]="service.active"
                   (click)="toggleService(service)">
                   {{ service.active ? 'Deactivate' : 'Activate' }}
                 </button>
+
               </td>
 
             </tr>
@@ -326,6 +354,7 @@
 
           <a
             [routerLink]="['/bookings', booking.id]"
+            [queryParams]="{ returnTo: '/admin' }"
             class="booking-card"
           >
 

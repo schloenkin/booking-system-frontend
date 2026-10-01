@@ -42,6 +42,7 @@ export class CreateBooking implements OnInit {
     this.bookableServiceService.getAllServices().subscribe({
       next: (services) => {
         this.services = services;
+        this.cdr.detectChanges();
       },
 
       error: (error) => {

@@ -1,8 +1,13 @@
-<h1>Create Booking</h1>
+<div class="create-booking-container">
 
-<form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+  <h1>Create Booking</h1>
 
-    <div>
+  <form
+    class="booking-form"
+    [formGroup]="bookingForm"
+    (ngSubmit)="onSubmit()">
+
+  <div>
 
       <label>
         Service
@@ -51,12 +56,14 @@
 
   }
 
-  <button
-    type="submit"
-    [disabled]="bookingForm.invalid || !selectedDate || !selectedSlot || isLoading">
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="bookingForm.invalid || !selectedDate || !selectedSlot || isLoading">
 
-    {{ isLoading ? 'Creating...' : 'Create' }}
+      {{ isLoading ? 'Creating...' : 'Create' }}
 
-  </button>
+    </button>
 
 </form>
+</div>

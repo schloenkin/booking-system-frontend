@@ -18,6 +18,7 @@ import { SlotPicker } from '../create-booking/components/slot-picker/slot-picker
   styleUrl: './booking-detail.css',
 })
 export class BookingDetail implements OnInit {
+  returnUrl = '/dashboard';
   booking: BookingResponse | null = null;
   services: BookableService[] = [];
   isCancelling = false;
@@ -36,6 +37,8 @@ export class BookingDetail implements OnInit {
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    this.returnUrl = this.route.snapshot.queryParamMap.get('returnTo') ?? '/dashboard';
 
     forkJoin({
       booking: this.bookingService.getBookingById(id),

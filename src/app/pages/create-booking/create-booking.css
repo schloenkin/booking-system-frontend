@@ -1,61 +1,151 @@
-form {
-  max-width: 500px;
-  margin: 30px auto;
-  padding: 25px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+/* ================================
+   Create Booking
+   ================================ */
+
+.create-booking-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px;
+  font-family: Arial, sans-serif;
 }
 
 
-h1 {
+/* ================================
+   Page title
+   ================================ */
+
+.create-booking-container h1 {
+  margin: 0 0 30px;
   text-align: center;
+  font-size: 32px;
 }
 
 
-form div {
-  margin-bottom: 20px;
+/* ================================
+   Booking form
+   ================================ */
+
+.booking-form {
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 28px;
+  border: 1px solid #d9d9d9;
+  border-radius: 12px;
+  background: white;
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.05);
 }
 
 
-label {
+/* ================================
+   Form groups
+   ================================ */
+
+.booking-form > div {
+  margin-bottom: 22px;
+}
+
+
+/* ================================
+   Labels
+   ================================ */
+
+.booking-form label {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+
+/* ================================
+   Select
+   ================================ */
+
+.booking-form select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.booking-form select:focus {
+  outline: none;
+  border-color: #777;
+  box-shadow:
+    0 0 0 3px rgba(0, 0, 0, 0.06);
+}
+
+
+/* ================================
+   Button
+   ================================ */
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.btn-primary {
+  background: #333;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+
+/* ================================
+   Errors
+   ================================ */
+
+.error-message {
+  margin: 15px 0;
+  padding: 12px 16px;
+  border: 1px solid #f5c2c7;
+  border-radius: 8px;
+  background: #f8d7da;
+  color: #842029;
   font-weight: 600;
 }
 
 
-input,
-select {
-  width: 100%;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-
-button {
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-
-.error-message {
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid #f5c2c7;
-  border-radius: 6px;
-  background-color: #f8d7da;
-  color: #842029;
-}
-
-
 .validation-error {
-  margin-top: 5px;
+  margin-top: 6px;
   color: #842029;
   font-size: 14px;
 }
 
 
-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
+/* ================================
+   Date / slot components
+   ================================ */
+
+.booking-form app-date-picker,
+.booking-form app-slot-picker {
+  display: block;
+  margin-top: 20px;
 }
