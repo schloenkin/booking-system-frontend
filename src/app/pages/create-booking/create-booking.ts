@@ -116,4 +116,8 @@ export class CreateBooking implements OnInit {
 
     console.log('SERVICE:', this.selectedService);
   }
+
+  onCancel(): void {
+    void this.router.navigate(['/dashboard']);
+  }
 }
