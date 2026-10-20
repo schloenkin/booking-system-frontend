@@ -59,11 +59,26 @@ export class CreateBooking implements OnInit {
       return;
     }
 
-    this.isLoading = true;
+    if (!this.selectedService) {
+        this.errorMessage = 'Please select a valid service.';
+        this.cdr.detectChanges();
+        return;
+    }
+    if (!this.selectedDate) {
 
-    if (!this.selectedService || !this.selectedDate || !this.selectedSlot) {
+      this.errorMessage = "Please select a date and time.";
+      this.cdr.detectChanges();
       return;
     }
+    if (!this.selectedSlot) {
+
+       this.errorMessage = "Please select a time.";
+       this.cdr.detectChanges();
+       return;
+        }
+
+    this.isLoading = true;
+
     const startTime = `${this.selectedDate}T${this.selectedSlot}`;
 
     const endTime = new Date(startTime);
@@ -71,10 +86,7 @@ export class CreateBooking implements OnInit {
     endTime.setMinutes(endTime.getMinutes() + this.selectedService.durationMinutes);
 
     const request = {
-      serviceId: this.bookingForm.controls.serviceId.value,
-      startTime,
-      endTime: `${endTime.getFullYear()}-${String(endTime.getMonth() + 1).padStart(2, '0')}-${String(endTime.getDate()).padStart(2, '0')}T${String(endTime.getHours()).padStart(2, '0')}:${String(endTime.getMinutes()).padStart(2, '0')}`,
-    };
+      serviceId: this.bookingForm.controls.serviceId.value,startTime,endTime:`${endTime.getFullYear()}-${String(endTime.getMonth() + 1).padStart(2, '0')}-${String(endTime.getDate()).padStart(2, '0')}T${String(endTime.getHours()).padStart(2, '0')}:${String(endTime.getMinutes()).padStart(2, '0')}`,};
 
     this.bookingService.createBooking(request).subscribe({
       next: (booking) => {
@@ -99,11 +111,27 @@ export class CreateBooking implements OnInit {
 
   onDateSelected(date: string): void {
     this.selectedDate = date;
-    console.log('DATE:', this.selectedDate);
+    this.selectedSlot = '';
+        if (!this.selectedSlot) {
+            this.errorMessage = 'Please select a time.';
+        } else {
+            this.errorMessage = 'Please select a time.';
+        }
+
+      this.cdr.detectChanges();
+
+      console.log('DATE:', this.selectedDate);
   }
 
   onSlotSelected(slot: string): void {
     this.selectedSlot = slot;
+
+      if (this.selectedDate && this.selectedSlot) {
+            this.errorMessage = '';
+        }
+
+        this.cdr.detectChanges();
+
     console.log('SLOT:', this.selectedSlot);
   }
 

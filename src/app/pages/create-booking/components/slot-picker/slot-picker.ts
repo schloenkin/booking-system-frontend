@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
 @Component({
   selector: 'app-slot-picker',
@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './slot-picker.html',
   styleUrl: './slot-picker.css',
 })
-export class SlotPicker {
+export class SlotPicker implements OnChanges {
   @Input() selectedDate = '';
 
   @Output() slotSelected = new EventEmitter<string>();
@@ -39,6 +39,10 @@ export class SlotPicker {
   }
 
   selectedSlot = '';
+
+  ngOnChanges(): void {
+    this.selectedSlot = '';
+  }
 
   selectSlot(slot: string): void {
     this.selectedSlot = slot;

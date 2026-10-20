@@ -55,14 +55,12 @@
     </div>
 
   }
-
+    <!--[disabled]="bookingForm.invalid || !selectedDate || !selectedSlot || isLoading"> -->
     <button
       class="btn btn-primary"
       type="submit"
-      [disabled]="bookingForm.invalid || !selectedDate || !selectedSlot || isLoading">
-
+      [disabled]="isLoading">
       {{ isLoading ? 'Creating...' : 'Create' }}
-
     </button>
 
     <button
