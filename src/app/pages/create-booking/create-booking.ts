@@ -15,6 +15,7 @@ import { DatePicker } from './components/date-picker/date-picker';
   templateUrl: './create-booking.html',
   styleUrl: './create-booking.css',
 })
+
 export class CreateBooking implements OnInit {
   selectedDate = '';
   selectedSlot = '';
@@ -112,15 +113,11 @@ export class CreateBooking implements OnInit {
   onDateSelected(date: string): void {
     this.selectedDate = date;
     this.selectedSlot = '';
-        if (!this.selectedSlot) {
-            this.errorMessage = 'Please select a time.';
-        } else {
-            this.errorMessage = 'Please select a time.';
-        }
+    this.errorMessage = '';
 
-      this.cdr.detectChanges();
+    this.cdr.detectChanges();
 
-      console.log('DATE:', this.selectedDate);
+    console.log('DATE:', this.selectedDate);
   }
 
   onSlotSelected(slot: string): void {
@@ -141,6 +138,10 @@ export class CreateBooking implements OnInit {
     const serviceId = Number(select.value);
 
     this.selectedService = this.services.find((service) => service.id === serviceId) ?? null;
+
+    this.selectedSlot = '';
+
+    this.errorMessage = '';
 
     console.log('SERVICE:', this.selectedService);
   }

@@ -1,0 +1,117 @@
+.services-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.services-page h1 {
+  font-size: 36px;
+  margin-bottom: 16px;
+}
+
+.services-page > p {
+  color: #666;
+  margin-bottom: 32px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, 280px), 1fr)
+  );
+  gap: 24px;
+}
+
+.service-card {
+  padding: 24px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background-color: #ffffff;
+}
+
+.service-card h2 {
+  font-size: 22px;
+  margin: 0 0 16px;
+}
+
+.service-card p {
+  line-height: 1.6;
+}
+
+.service-duration {
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.service-card button {
+  margin-top: 12px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #2563eb;
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.service-card button:hover {
+  background-color: #1d4ed8;
+}
+
+.availability-section {
+  margin-top: 48px;
+  padding: 32px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+}
+
+@media (max-width: 600px) {
+  .availability-section {
+    padding: 20px;
+  }
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 650px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.modal-content .availability-section {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    padding: 24px 16px;
+  }
+}

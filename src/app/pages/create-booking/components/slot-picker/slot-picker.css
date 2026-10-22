@@ -79,3 +79,23 @@ h3 {
 .slots button.selected:hover {
   background: #222;
 }
+
+.slots button:disabled {
+  background-color: #eeeeee;
+  color: #999999;
+  border: 1px solid #dddddd;
+  cursor: not-allowed;
+  opacity: 0.65;
+  text-decoration: line-through;
+}
+
+.slots button:not(:disabled) {
+  cursor: pointer;
+}
+
+.slots button.selected {
+  background-color: #2563eb;
+  color: white;
+  border-color: #2563eb;
+  font-weight: 600;
+}

@@ -1,40 +1,72 @@
 .landing-container {
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #222;
+}
+
+.hero {
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 80px 24px;
 }
 
-
-.landing-container h1 {
+.hero h1 {
   font-size: 48px;
-  margin-bottom: 20px;
+  margin: 0 0 20px;
 }
 
-
-.landing-container p {
+.hero p {
   font-size: 20px;
-  margin-bottom: 30px;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 0 32px;
 }
-
 
 .landing-actions {
   display: flex;
+  justify-content: center;
   gap: 16px;
 }
 
-
 .landing-button {
+  display: inline-block;
   padding: 12px 24px;
   border-radius: 8px;
   text-decoration: none;
   border: 1px solid #ccc;
-  color: inherit;
+  color: #222;
 }
 
+.landing-button:hover {
+  background-color: #f3f4f6;
+}
 
 .landing-button.primary {
-  background-color: #d1e7dd;
+  background-color: #2563eb;
+  border-color: #2563eb;
+  color: white;
+}
+
+.landing-button.primary:hover {
+  background-color: #1d4ed8;
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .hero p {
+    font-size: 17px;
+  }
+
+  .landing-actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 280px;
+  }
 }

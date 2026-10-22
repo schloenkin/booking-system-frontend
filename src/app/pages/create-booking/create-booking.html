@@ -43,6 +43,7 @@
 
       <app-slot-picker
         [selectedDate]="selectedDate"
+        [serviceId]="bookingForm.controls.serviceId.value"
         (slotSelected)="onSlotSelected($event)">
       </app-slot-picker>
     </div>
@@ -55,11 +56,11 @@
     </div>
 
   }
-    <!--[disabled]="bookingForm.invalid || !selectedDate || !selectedSlot || isLoading"> -->
+
     <button
       class="btn btn-primary"
       type="submit"
-      [disabled]="isLoading">
+      [disabled]="bookingForm.invalid || !selectedDate || !selectedSlot || isLoading">
       {{ isLoading ? 'Creating...' : 'Create' }}
     </button>
 

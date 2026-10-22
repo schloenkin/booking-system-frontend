@@ -1,0 +1,95 @@
+<section class="services-page">
+
+  <h1>Our Services</h1>
+
+  <p>
+    Discover our treatments and choose
+    the perfect service for you.
+  </p>
+
+  @if (isLoading) {
+  <p>Loading services...</p>
+  } @else if (errorMessage) {
+  <p class="error-message">{{ errorMessage }}</p>
+  } @else if (services.length === 0) {
+  <p>No services available.</p>
+  } @else {
+
+  <div class="services-grid">
+
+    @for (service of services; track service.id) {
+
+    <article class="service-card">
+      <h2>{{ service.name }}</h2>
+
+      <p>{{ service.description }}</p>
+
+      <p class="service-duration">
+        Duration: {{ service.durationMinutes }} min
+      </p>
+
+      <button
+        type="button"
+        (click)="selectService(service)">
+        Check availability
+      </button>
+
+    </article>
+
+    }
+
+  </div>
+  @if (selectedService) {
+  <div class="modal-backdrop" (click)="closeAvailability()">
+
+    <div
+      class="modal-content"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Check appointment availability"
+      (click)="$event.stopPropagation()">
+
+      <button
+        type="button"
+        class="modal-close"
+        aria-label="Close"
+        (click)="closeAvailability()">
+        ×
+      </button>
+
+      <section class="availability-section">
+
+    <h2>
+      Available appointments:
+      {{ selectedService.name }}
+    </h2>
+
+    <app-date-picker
+      (dateSelected)="onDateSelected($event)">
+    </app-date-picker>
+
+    <app-slot-picker
+      [selectedDate]="selectedDate"
+      [serviceId]="selectedService.id"
+      (slotSelected)="onSlotSelected($event)">
+    </app-slot-picker>
+
+    @if (selectedSlot) {
+    <p>
+      Selected appointment:
+      {{ selectedDate }} at {{ selectedSlot }}
+    </p>
+
+    <p>
+      Sign in to confirm your appointment.
+    </p>
+    }
+
+  </section>
+    </div>
+  </div>
+  }
+
+  }
+
+</section>

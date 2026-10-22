@@ -8,6 +8,7 @@ import { Register } from './pages/register/register';
 import { authGuard } from './core/guards/auth-guard';
 import { adminGuard } from './core/guards/admin-guard';
 import { Admin } from './pages/admin/admin';
+import { Services } from './pages/services/services';
 
 export const routes: Routes = [
   {
@@ -37,6 +38,10 @@ export const routes: Routes = [
     path: 'bookings/:id',
     component: BookingDetail,
     canActivate: [authGuard],
+  },
+  {
+    path: 'services',
+    component: Services,
   },
   {
     path: '',

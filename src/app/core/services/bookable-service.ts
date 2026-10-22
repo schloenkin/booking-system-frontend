@@ -13,6 +13,17 @@ export interface BookableService {
   active: boolean;
 }
 
+export interface AvailabilitySlot {
+  time: string;
+  available: boolean;
+}
+
+export interface AvailabilityResponse {
+  serviceId: number;
+  date: string;
+  slots: AvailabilitySlot[];
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -23,6 +34,18 @@ export class BookableServiceService {
 
   getAllServices(): Observable<BookableService[]> {
     return this.http.get<BookableService[]>(this.apiUrl);
+  }
+
+  getAvailability(
+    serviceId: number,
+    date: string
+  ): Observable<AvailabilityResponse> {
+    return this.http.get<AvailabilityResponse>(
+      `${this.apiUrl}/${serviceId}/availability`,
+      {
+        params: { date }
+      }
+    );
   }
 
   activateService(id: number): Observable<BookableService> {

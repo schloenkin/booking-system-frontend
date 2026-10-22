@@ -1,4 +1,17 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ChangeDetectorRef
+} from '@angular/core';
+
+import {
+  BookableServiceService,
+  AvailabilitySlot
+} from '../../../../core/services/bookable-service';
 
 @Component({
   selector: 'app-slot-picker',
@@ -8,44 +21,76 @@ import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core
   styleUrl: './slot-picker.css',
 })
 export class SlotPicker implements OnChanges {
+
   @Input() selectedDate = '';
+  @Input() serviceId = 0;
 
   @Output() slotSelected = new EventEmitter<string>();
 
-  allSlots: string[] = ['09:00', '10:00', '11:00', '13:00', '14:00'];
-
-  get availableSlots(): string[] {
-    if (!this.selectedDate) {
-      return [];
-    }
-
-    const today = new Date().toISOString().split('T')[0];
-
-    if (this.selectedDate !== today) {
-      return this.allSlots;
-    }
-
-    const now = new Date();
-
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
-
-    return this.allSlots.filter((slot) => {
-      const [hours, minutes] = slot.split(':').map(Number);
-
-      const slotMinutes = hours * 60 + minutes;
-
-      return slotMinutes > currentMinutes;
-    });
-  }
-
+  slots: AvailabilitySlot[] = [];
   selectedSlot = '';
+  isLoading = false;
+  errorMessage = '';
 
-  ngOnChanges(): void {
+  private requestVersion = 0;
+
+  constructor(
+    private bookableServiceService: BookableServiceService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (!changes['selectedDate'] && !changes['serviceId']) {
+      return;
+    }
+
     this.selectedSlot = '';
+    this.slotSelected.emit('');
+    this.slots = [];
+    this.errorMessage = '';
+
+    const version = ++this.requestVersion;
+
+    if (!this.selectedDate || this.serviceId <= 0) {
+      this.isLoading = false;
+      return;
+    }
+
+    this.isLoading = true;
+
+    this.bookableServiceService
+      .getAvailability(this.serviceId, this.selectedDate)
+      .subscribe({
+        next: (response) => {
+          if (version !== this.requestVersion) {
+            return;
+          }
+
+          this.slots = response.slots;
+          this.isLoading = false;
+          this.cdr.detectChanges();
+        },
+
+        error: (error) => {
+          if (version !== this.requestVersion) {
+            return;
+          }
+
+          console.error('AVAILABILITY ERROR:', error);
+          this.errorMessage = 'Could not load available slots.';
+          this.isLoading = false;
+          this.cdr.detectChanges();
+        }
+      });
   }
 
-  selectSlot(slot: string): void {
-    this.selectedSlot = slot;
-    this.slotSelected.emit(slot);
+  selectSlot(slot: AvailabilitySlot): void {
+    if (!slot.available || this.isLoading) {
+      return;
+    }
+
+    this.selectedSlot = slot.time.substring(0, 5);
+    this.slotSelected.emit(this.selectedSlot);
   }
 }

@@ -1,24 +1,28 @@
-@if (selectedDate) {
+@if (selectedDate && serviceId > 0) {
 
-  <h3>
-    Available slots
-  </h3>
+<h3>Available slots</h3>
 
-  <div class="slots">
+@if (isLoading) {
+<p>Loading available slots...</p>
+} @else if (errorMessage) {
+<p class="error-message">{{ errorMessage }}</p>
+} @else if (slots.length === 0) {
+<p>No slots available for this date.</p>
+} @else {
 
-    @for (slot of availableSlots; track slot) {
+<div class="slots">
+  @for (slot of slots; track slot.time) {
+  <button
+    type="button"
+    [disabled]="!slot.available"
+    [class.selected]="selectedSlot === slot.time.substring(0, 5)"
+    (click)="selectSlot(slot)">
 
-      <button
-        type="button"
-        (click)="selectSlot(slot)"
-        [class.selected]="selectedSlot === slot">
+    {{ slot.time.substring(0, 5) }}
 
-        {{ slot }}
+  </button>
+  }
+</div>
 
-      </button>
-
-    }
-
-  </div>
-
+}
 }
