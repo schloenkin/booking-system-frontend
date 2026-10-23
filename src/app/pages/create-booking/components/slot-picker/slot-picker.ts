@@ -25,6 +25,7 @@ export class SlotPicker implements OnChanges {
   @Input() selectedDate = '';
   @Input() serviceId = 0;
   @Input() requestedSlot = '';
+  @Input() refreshTrigger = 0;
 
   @Output() slotSelected = new EventEmitter<string>();
 
@@ -42,7 +43,11 @@ export class SlotPicker implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    if (!changes['selectedDate'] && !changes['serviceId']) {
+    if (
+      !changes['selectedDate'] &&
+      !changes['serviceId'] &&
+      !changes['refreshTrigger']
+    ) {
       return;
     }
 

@@ -20,6 +20,7 @@ export class CreateBooking implements OnInit {
   selectedDate = '';
   selectedSlot = '';
   pendingSlot = '';
+  availabilityRefresh = 0;
   selectedService: BookableService | null = null;
   errorMessage = '';
   isLoading = false;
@@ -138,17 +139,44 @@ export class CreateBooking implements OnInit {
         void this.router.navigate(['/dashboard']);
       },
 
-      error: (error) => {
-        console.error('CREATE ERROR:', error);
 
-        this.errorMessage = error.error?.message ?? 'Something went wrong';
+    error: (error) => {
+      console.error('CREATE ERROR:', error);
 
-        this.isLoading = false;
+      if (
+        error.status === 409 &&
+        error.error?.code === 'BOOKING_TIME_CONFLICT'
+      ) {
+        this.errorMessage =
+          'This time slot is no longer available. Please choose another time.';
 
-        this.cdr.detectChanges();
-      },
+        this.selectedSlot = '';
+        this.pendingSlot = '';
+        this.availabilityRefresh++;
+
+      } else if (error.status === 409) {
+        this.errorMessage =
+          error.error?.message ??
+          'Booking conflict. Please check your selection.';
+
+      } else if (error.status === 401) {
+        this.errorMessage =
+          'Your session has expired. Please sign in again.';
+
+      } else if (error.status === 0) {
+        this.errorMessage =
+          'Cannot connect to the server. Please check your connection.';
+
+      } else {
+        this.errorMessage =
+          error.error?.message ?? 'Unable to create booking.';
+      }
+
+      this.isLoading = false;
+      this.cdr.detectChanges();
+    }
     });
-  }
+      }
 
   onDateSelected(date: string): void {
     this.selectedDate = date;
@@ -164,13 +192,11 @@ export class CreateBooking implements OnInit {
   onSlotSelected(slot: string): void {
     this.selectedSlot = slot;
 
-      if (this.selectedDate && this.selectedSlot) {
-            this.errorMessage = '';
-        }
+    if (slot) {
+      this.errorMessage = '';
+    }
 
-        this.cdr.detectChanges();
-
-    console.log('SLOT:', this.selectedSlot);
+    this.cdr.detectChanges();
   }
 
   onServiceSelected(event: Event): void {

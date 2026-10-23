@@ -46,6 +46,7 @@
         [selectedDate]="selectedDate"
         [serviceId]="bookingForm.controls.serviceId.value"
         [requestedSlot]="pendingSlot"
+        [refreshTrigger]="availabilityRefresh"
         (slotSelected)="onSlotSelected($event)">
       </app-slot-picker>
     </div>
