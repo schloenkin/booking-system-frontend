@@ -9,6 +9,7 @@ import { authGuard } from './core/guards/auth-guard';
 import { adminGuard } from './core/guards/admin-guard';
 import { Admin } from './pages/admin/admin';
 import { Services } from './pages/services/services';
+import { BookingSuccess } from './pages/booking-success/booking-success';
 
 export const routes: Routes = [
   {
@@ -32,6 +33,11 @@ export const routes: Routes = [
   {
     path: 'create-booking',
     component: CreateBooking,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'booking-success',
+    component: BookingSuccess,
     canActivate: [authGuard],
   },
   {

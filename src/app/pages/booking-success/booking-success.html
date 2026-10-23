@@ -1,0 +1,75 @@
+<section class="booking-success-page">
+
+  @if (booking; as confirmedBooking) {
+
+  <div class="success-card">
+
+    <div class="success-icon" aria-hidden="true">
+      ✓
+    </div>
+
+    <h1>Booking Created!</h1>
+
+    <p class="success-message">
+      Your appointment has been successfully submitted.
+    </p>
+
+    <div class="booking-details">
+
+      <p>
+        <strong>Booking ID:</strong>
+        #{{ confirmedBooking.id }}
+      </p>
+
+      <p>
+        <strong>Service:</strong>
+        {{ serviceName || ('Service #' + confirmedBooking.serviceId) }}
+      </p>
+
+      <p>
+        <strong>Start:</strong>
+        {{ confirmedBooking.startTime.replace('T', ' ') }}
+      </p>
+
+      <p>
+        <strong>End:</strong>
+        {{ confirmedBooking.endTime.replace('T', ' ') }}
+      </p>
+
+      <p>
+        <strong>Status:</strong>
+        {{ confirmedBooking.status }}
+      </p>
+
+    </div>
+
+    <div class="success-actions">
+      <a routerLink="/dashboard" class="dashboard-button">
+        View My Bookings
+      </a>
+
+      <a routerLink="/services" class="secondary-button">
+        Book Another Appointment
+      </a>
+    </div>
+
+  </div>
+
+  } @else {
+
+  <div class="success-card">
+    <h1>Booking details unavailable</h1>
+
+    <p>
+      No booking information was provided for this page.
+      You can check your bookings in your dashboard.
+    </p>
+
+    <a routerLink="/dashboard" class="dashboard-button">
+      View My Bookings
+    </a>
+  </div>
+
+  }
+
+</section>

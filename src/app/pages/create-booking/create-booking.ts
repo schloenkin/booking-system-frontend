@@ -7,6 +7,7 @@ import { BookableServiceService, BookableService } from '../../core/services/boo
 import { BookingService } from '../../core/services/booking';
 import { SlotPicker } from './components/slot-picker/slot-picker';
 import { DatePicker } from './components/date-picker/date-picker';
+import { BookingResponse } from '../../core/models/booking-response';
 
 @Component({
   selector: 'app-create-booking',
@@ -131,12 +132,15 @@ export class CreateBooking implements OnInit {
       serviceId: this.bookingForm.controls.serviceId.value,startTime,endTime:`${endTime.getFullYear()}-${String(endTime.getMonth() + 1).padStart(2, '0')}-${String(endTime.getDate()).padStart(2, '0')}T${String(endTime.getHours()).padStart(2, '0')}:${String(endTime.getMinutes()).padStart(2, '0')}`,};
 
     this.bookingService.createBooking(request).subscribe({
-      next: (booking) => {
-        console.log('CREATED:', booking);
-
+      next: (booking: BookingResponse) => {
         this.isLoading = false;
 
-        void this.router.navigate(['/dashboard']);
+        this.router.navigate(['/booking-success'], {
+          state: {
+            booking: booking,
+            serviceName: this.selectedService?.name ?? ''
+          }
+        });
       },
 
 
