@@ -64,28 +64,34 @@
       {{ selectedService.name }}
     </h2>
 
-    <app-date-picker
-      (dateSelected)="onDateSelected($event)">
-    </app-date-picker>
+        <app-date-picker
+          [selectedDate]="selectedDate"
+          (dateSelected)="onDateSelected($event)">
+        </app-date-picker>
 
-    <app-slot-picker
+        <app-slot-picker
       [selectedDate]="selectedDate"
       [serviceId]="selectedService.id"
       (slotSelected)="onSlotSelected($event)">
     </app-slot-picker>
 
-    @if (selectedSlot) {
-    <p>
-      Selected appointment:
-      {{ selectedDate }} at {{ selectedSlot }}
-    </p>
+        @if (selectedSlot) {
+        <div class="booking-confirmation">
+          <p>
+            <strong>Selected appointment:</strong>
+            {{ selectedDate }} at {{ selectedSlot }}
+          </p>
 
-    <p>
-      Sign in to confirm your appointment.
-    </p>
-    }
+          <button
+            type="button"
+            class="book-appointment-button"
+            (click)="continueToBooking()">
+            Book Appointment
+          </button>
+        </div>
+        }
 
-  </section>
+      </section>
     </div>
   </div>
   }

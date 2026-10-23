@@ -24,6 +24,7 @@ export class SlotPicker implements OnChanges {
 
   @Input() selectedDate = '';
   @Input() serviceId = 0;
+  @Input() requestedSlot = '';
 
   @Output() slotSelected = new EventEmitter<string>();
 
@@ -69,6 +70,21 @@ export class SlotPicker implements OnChanges {
 
           this.slots = response.slots;
           this.isLoading = false;
+
+          // Überprüfen, ob die Zeit noch verfügbar ist
+          const requested = this.slots.find(
+            (slot) =>
+              slot.time.substring(0, 5) === this.requestedSlot &&
+              slot.available
+          );
+
+          if (requested) {
+            this.selectSlot(requested);
+          } else if (this.requestedSlot) {
+            this.errorMessage =
+              'Your previously selected time is no longer available. Please choose another slot.';
+          }
+
           this.cdr.detectChanges();
         },
 

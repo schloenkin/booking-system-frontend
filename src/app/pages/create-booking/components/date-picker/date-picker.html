@@ -1,8 +1,10 @@
-<label>
+<label for="booking-date">
   Select date
 </label>
 
 <input
+  id="booking-date"
   type="date"
+  [value]="selectedDate"
   (change)="selectDate($event)">
 

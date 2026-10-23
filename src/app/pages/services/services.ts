@@ -1,5 +1,6 @@
 import { SlotPicker } from '../create-booking/components/slot-picker/slot-picker';
 import { DatePicker } from '../create-booking/components/date-picker/date-picker';
+import { Router } from '@angular/router';
 
 import {
   ChangeDetectorRef,
@@ -47,12 +48,27 @@ export class Services implements OnInit {
     this.selectedSlot = '';
   }
 
+  continueToBooking(): void {
+    if (!this.selectedService || !this.selectedDate || !this.selectedSlot) {
+      return;
+    }
+
+    void this.router.navigate(['/create-booking'], {
+      queryParams: {
+        serviceId: this.selectedService.id,
+        date: this.selectedDate,
+        time: this.selectedSlot
+      }
+    });
+  }
+
   isLoading = true;
   errorMessage = '';
 
   constructor(
     private bookableServiceService: BookableServiceService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {

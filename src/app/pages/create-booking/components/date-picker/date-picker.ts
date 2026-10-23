@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-date-picker',
@@ -8,11 +8,13 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrl: './date-picker.css',
 })
 export class DatePicker {
+
+  @Input() selectedDate = '';
+
   @Output() dateSelected = new EventEmitter<string>();
 
   selectDate(event: Event): void {
     const input = event.target as HTMLInputElement;
-
     this.dateSelected.emit(input.value);
   }
 }

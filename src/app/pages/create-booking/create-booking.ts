@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { BookableServiceService, BookableService } from '../../core/services/bookable-service';
 import { BookingService } from '../../core/services/booking';
@@ -19,6 +19,7 @@ import { DatePicker } from './components/date-picker/date-picker';
 export class CreateBooking implements OnInit {
   selectedDate = '';
   selectedSlot = '';
+  pendingSlot = '';
   selectedService: BookableService | null = null;
   errorMessage = '';
   isLoading = false;
@@ -36,19 +37,58 @@ export class CreateBooking implements OnInit {
     private bookingService: BookingService,
     private bookableServiceService: BookableServiceService,
     private router: Router,
+    private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
+
+    const serviceId = Number(
+      this.route.snapshot.queryParamMap.get('serviceId')
+    );
+
+    const date = this.route.snapshot.queryParamMap.get('date');
+    const time = this.route.snapshot.queryParamMap.get('time');
+
     this.bookableServiceService.getAllServices().subscribe({
       next: (services) => {
         this.services = services;
+
+        if (serviceId > 0) {
+          const service = services.find(
+            (item) => item.id === serviceId && item.active
+          );
+
+          if (service) {
+            this.selectedService = service;
+
+            this.bookingForm.controls.serviceId.setValue(service.id);
+          }
+        }
+
+        if (this.selectedService &&
+            date &&
+            /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+          this.selectedDate = date;
+        }
+
+        if (
+          this.selectedService &&
+          this.selectedDate &&
+          time &&
+          /^([01]\d|2[0-3]):[0-5]\d$/.test(time)
+        ) {
+          this.pendingSlot = time;
+        }
+
         this.cdr.detectChanges();
       },
 
       error: (error) => {
         console.error('LOAD SERVICES ERROR:', error);
-      },
+        this.errorMessage = 'Could not load services.';
+        this.cdr.detectChanges();
+      }
     });
   }
 
@@ -113,6 +153,7 @@ export class CreateBooking implements OnInit {
   onDateSelected(date: string): void {
     this.selectedDate = date;
     this.selectedSlot = '';
+    this.pendingSlot = '';
     this.errorMessage = '';
 
     this.cdr.detectChanges();
@@ -140,7 +181,7 @@ export class CreateBooking implements OnInit {
     this.selectedService = this.services.find((service) => service.id === serviceId) ?? null;
 
     this.selectedSlot = '';
-
+    this.pendingSlot = '';
     this.errorMessage = '';
 
     console.log('SERVICE:', this.selectedService);

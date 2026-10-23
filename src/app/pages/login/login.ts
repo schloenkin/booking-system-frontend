@@ -44,10 +44,11 @@ export class Login {
 
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
 
-        if (returnUrl) {
-          this.router.navigate([returnUrl]);
+        if (returnUrl && returnUrl.startsWith('/') && !returnUrl.startsWith('//')) {
+          void this.router.navigateByUrl(returnUrl);
           return;
         }
+
 
         if (response.user.role === 'ADMIN') {
           this.router.navigate(['/admin']);

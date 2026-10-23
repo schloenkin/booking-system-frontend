@@ -37,13 +37,15 @@
         </p>
       }
 
-      <app-date-picker
-        (dateSelected)="onDateSelected($event)">
-      </app-date-picker>
+    <app-date-picker
+      [selectedDate]="selectedDate"
+      (dateSelected)="onDateSelected($event)">
+    </app-date-picker>
 
-      <app-slot-picker
+    <app-slot-picker
         [selectedDate]="selectedDate"
         [serviceId]="bookingForm.controls.serviceId.value"
+        [requestedSlot]="pendingSlot"
         (slotSelected)="onSlotSelected($event)">
       </app-slot-picker>
     </div>
